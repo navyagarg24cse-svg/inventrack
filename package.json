@@ -1,0 +1,95 @@
+{
+  "name": "inventrack",
+  "productName": "InvenTrack",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Offline inventory management desktop application",
+  "author": "InvenTrack",
+  "type": "module",
+
+  "main": "electron.cjs",
+
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview",
+
+    "electron:dev": "concurrently -k \"cross-env NODE_ENV=development vite\" \"wait-on http://localhost:5173 && cross-env NODE_ENV=development electron .\"",
+
+    "electron:build": "vite build && electron-builder --win --x64",
+
+    "electron:build:dir": "vite build && electron-builder --win --x64 --dir"
+  },
+
+  "dependencies": {
+    "@tailwindcss/vite": "^4.3.0",
+    "exceljs": "^4.4.0",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "react-hot-toast": "^2.6.0",
+    "tailwindcss": "^4.3.0",
+    "xlsx": "^0.18.5"
+  },
+
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.1",
+    "concurrently": "^9.1.2",
+    "cross-env": "^7.0.3",
+    "electron": "^36.3.1",
+    "electron-builder": "^26.0.12",
+    "eslint": "^10.3.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.2",
+    "globals": "^17.6.0",
+    "vite": "^8.0.12",
+    "wait-on": "^8.0.3"
+  },
+
+  "build": {
+    "appId": "com.inventrack.app",
+    "productName": "InvenTrack",
+    "copyright": "Copyright © 2025 InvenTrack",
+
+    "files": [
+      "dist/**/*",
+      "electron.cjs",
+      "package.json"
+    ],
+
+    "directories": {
+      "buildResources": "build-resources",
+      "output": "release"
+    },
+
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        }
+      ],
+      "icon": "build-resources/icon.ico"
+    },
+
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "allowElevation": true,
+      "installerIcon": "build-resources/icon.ico",
+      "uninstallerIcon": "build-resources/icon.ico",
+      "installerHeaderIcon": "build-resources/icon.ico",
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "InvenTrack",
+      "runAfterFinish": true
+    },
+
+    "extraMetadata": {
+      "main": "electron.cjs"
+    }
+  }
+}
